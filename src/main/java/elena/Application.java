@@ -1,10 +1,14 @@
 package elena;
+import elena.dao.ClientDAO;
 import elena.dao.LibraryItemDAO;
-import elena.entities.Book;
-import elena.entities.Magazine;
+import elena.dao.LoanDAO;
+import elena.entities.*;
 import elena.enumerated.BookGenre;
 import elena.enumerated.Periodicity;
 import jakarta.persistence.*;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 
 //The archive must allow the following operations:
@@ -23,6 +27,8 @@ public class Application {
     public static void main(String[] args) {
         EntityManager em = emf.createEntityManager();
         LibraryItemDAO libraryDAO = new LibraryItemDAO(em);
+        ClientDAO clientDAO = new ClientDAO(em);
+        LoanDAO loanDAO = new LoanDAO(em);
 
         //    Add a catalog item
         Book cegueira = new Book("123456", "Ensaio sobre a cegueira", 1960, 259, "José Saramago", BookGenre.THRILLER);
@@ -31,8 +37,7 @@ public class Application {
         Book capitaesDaAreia = new Book("9788535911695", "Capitães da Areia", 1937, 280, "Jorge Amado", BookGenre.FANTASY);
         Book alquimista = new Book("9788575427583", "O Alquimista", 1988, 208, "Paulo Coelho", BookGenre.HISTORICAL_FICTION);
 
-        libraryDAO.save(alquimista);
-
+        //libraryDAO.save(alquimista);
 //      libraryDAO.save(memorias);
 //      libraryDAO.save(horaDaEstrela);
 //      libraryDAO.save(capitaesDaAreia);
@@ -43,11 +48,42 @@ public class Application {
         Magazine limes = new Magazine("9788883719924", "Limes: Il mondo nel 2026", 2026, 250, Periodicity.MONTHLY);
         Magazine natGeo = new Magazine("9771128561002", "National Geographic Italia", 2026, 114, Periodicity.MONTHLY);
 
-        libraryDAO.save(natGeo);
-
-//      libraryDAO.save(superBike);
+     //libraryDAO.findByIsbn("9788575427583");
 //      libraryDAO.save(focus);
 //      libraryDAO.save(cucina);
 //      libraryDAO.save(limes);
+
+        //libraryDAO.findByAuthor("Paulo Coelho");
+        //libraryDAO.findByYear(2026);
+
+        //libraryDAO.findByTitle("La");
+        //    libraryDAO.deleteByIsbn("9788575427583");
+
+
+
+        Client c1 = new Client("Machado", "de Assis", LocalDate.of(1839, 6, 21), new ArrayList<>());
+        Client c2 = new Client("Clarice", "Lispector", LocalDate.of(1920, 12, 10), new ArrayList<>());
+        Client c3 = new Client("Jorge", "Amado", LocalDate.of(1912, 8, 10), new ArrayList<>());
+
+        //clientDAO.save(c2);
+        LibraryItem book1 = libraryDAO.findByIsbn("9788572325424");
+        // LibraryItem book2 = libraryDAO.findByIsbn("9788572325424");
+        //LibraryItem book3 = libraryDAO.findByIsbn("9771121356001");
+
+        Client client1fromDB = clientDAO.findByMembershipNum(1774622523653L);
+
+        Loan loan2 = new Loan(client1fromDB, book1, LocalDate.now().minusDays(50), null);
+
+        loanDAO.save(loan2);
+
+        loanDAO.findLoanedItemByClientNum(1774622523653L);
+
+        loanDAO.findOverdueLoans();
+
+
+        em.close();
+        emf.close();
     }
+
 }
+

@@ -16,7 +16,7 @@ public class Loan {
     @JoinColumn(name = "client_id") // This creates the FK column in the DB
     private Client client;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "item_id")
     private LibraryItem borrowedItem;
 

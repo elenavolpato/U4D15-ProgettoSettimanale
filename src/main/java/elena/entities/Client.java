@@ -8,10 +8,11 @@ import java.util.List;
 
 @Entity
 @Table(name="client")
-
+@NamedQuery(name = "find_client_by_membership",
+        query = "SELECT c FROM Client c WHERE c.membershipNum = :num")
 public class Client {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name="first_name")
@@ -23,7 +24,7 @@ public class Client {
     @Column(name="date_birth")
     private LocalDate dateBirth;
 
-    @Column(name="membership_num", unique = true)
+    @Column(name="membership_num", unique = true, nullable = false)
     private long membershipNum;
 
     @OneToMany(mappedBy = "client")
@@ -34,8 +35,7 @@ public class Client {
         this.firstName=firstName;
         this.lastName = lastName;
         this.dateBirth = dateBirth;
-        this.loans = loans;
-        //generates random num for
+        //generates random num for membershipNum
         this.membershipNum = System.currentTimeMillis();
 
     }

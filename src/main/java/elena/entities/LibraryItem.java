@@ -6,6 +6,11 @@ import jakarta.persistence.*;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name="library_item")
 
+@NamedQueries({
+        @NamedQuery(name = "find_by_isbn", query = "SELECT i FROM LibraryItem i WHERE i.ISBN = :isbn"),
+        @NamedQuery(name = "find_by_year", query = "SELECT i FROM LibraryItem i WHERE i.year = :year")
+})
+
 public abstract class LibraryItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,7 +36,7 @@ public abstract class LibraryItem {
         this.pages = pages;
     }
 
-    public long getId() {        return id;    }
+    public Long getId() {        return id;    }
 
     public void setISBN(String ISBN) {        this.ISBN = ISBN;     }
     public String getISBN() {         return ISBN;    } // isbn doesn't change, it's unique, so it does not require/allow a setter.

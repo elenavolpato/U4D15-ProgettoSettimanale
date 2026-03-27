@@ -6,6 +6,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name="books")
 
+@NamedQuery(name = "find_books_by_author",
+        query = "SELECT b FROM Book b WHERE b.author = :author")
+
 public class Book extends LibraryItem{
     private String author;
     @Enumerated(EnumType.STRING)
@@ -27,8 +30,11 @@ public class Book extends LibraryItem{
     @Override
     public String toString() {
         return "Book{" +
-                "author='" + author + '\'' +
-                ", genre=" + genre +
+                "id=" + getId() +
+                ", ISBN='" + getISBN()  +
+                ", title='" + getTitle()  +
+                ", author='" + author +
+                ", genre=" + genre + '\'' +
                 '}';
     }
 }

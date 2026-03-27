@@ -24,6 +24,9 @@ public class Magazine extends LibraryItem{
     @Override
     public String toString() {
         return "Magazine{" +
+                "id=" + getId() +
+                ", ISBN='" + getISBN() +
+                ", title='" + getTitle() +
                 "periodicity=" + periodicity +
                 '}';
     }
