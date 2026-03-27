@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 
 public class Book extends LibraryItem{
     private String author;
+    @Enumerated(EnumType.STRING)
     private BookGenre genre;
 
     public Book(){};

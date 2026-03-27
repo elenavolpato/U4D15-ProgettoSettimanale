@@ -13,8 +13,10 @@ public abstract class LibraryItem {
 
     @Column(unique = true, nullable = false)
     private String ISBN;
+
     @Column(name = "publication_year")
     private int year;
+
     @Column(name="num_pages")
     private int pages;
 
@@ -27,6 +29,8 @@ public abstract class LibraryItem {
     }
 
     public long getId() {        return id;    }
+
+    public void setISBN(String ISBN) {        this.ISBN = ISBN;     }
     public String getISBN() {         return ISBN;    } // isbn doesn't change, it's unique, so it does not require/allow a setter.
 
     public int getYear() {        return year;    }

@@ -7,7 +7,7 @@ import jakarta.persistence.*;
 @Table(name="magazine")
 
 public class Magazine extends LibraryItem{
-
+    @Enumerated(EnumType.STRING)
     private Periodicity periodicity;
 
     public Magazine(){};

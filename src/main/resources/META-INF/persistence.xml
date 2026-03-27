@@ -4,6 +4,11 @@
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <persistence-unit name="U4D15">
         <class>elena.entities.LibraryItem</class>
+        <class>elena.entities.Book</class>
+        <class>elena.entities.Magazine</class>
+        <class>elena.entities.Client</class>
+        <class>elena.entities.Loan</class>
+        <class>elena.entities.Client</class>
         <properties>
             <property name="jakarta.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/U4D15"/>
             <property name="jakarta.persistence.jdbc.user" value="postgres"/>
