@@ -11,6 +11,8 @@ public abstract class LibraryItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
+
     @Column(unique = true, nullable = false)
     private String ISBN;
 
@@ -22,8 +24,9 @@ public abstract class LibraryItem {
 
     public LibraryItem(){}
 
-    public LibraryItem(String ISBN, int year, int pages){
+    public LibraryItem(String ISBN,String title, int year, int pages){
         this.ISBN = ISBN;
+        this.title = title;
         this.year = year;
         this.pages = pages;
     }
@@ -32,6 +35,9 @@ public abstract class LibraryItem {
 
     public void setISBN(String ISBN) {        this.ISBN = ISBN;     }
     public String getISBN() {         return ISBN;    } // isbn doesn't change, it's unique, so it does not require/allow a setter.
+
+    public String getTitle() {        return title;    }
+    public void setTitle(String title) {        this.title = title;    }
 
     public int getYear() {        return year;    }
     public void setYear(int year) {        this.year = year;    }

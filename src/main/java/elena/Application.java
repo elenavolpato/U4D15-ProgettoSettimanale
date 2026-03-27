@@ -1,35 +1,11 @@
 package elena;
+import elena.dao.LibraryItemDAO;
+import elena.entities.Book;
+import elena.entities.Magazine;
+import elena.enumerated.BookGenre;
+import elena.enumerated.Periodicity;
 import jakarta.persistence.*;
 
-
-//English Translation:
-//Create a Java project that implements persistence management based on JPA and a PostgreSQL database for a bibliographic catalog with loan management.
-//The repository must contain an attached ER diagram (created via drawsql.app), which should be appropriately commented on in the README to justify your design choices, as well as a screenshot of the same ERD from pgAdmin.
-//Detailed instructions follow in the subsequent slides.
-//Create the classes necessary to manage a library catalog. The catalog consists of items that can be either Books or Magazines. Both Books and Magazines have the following attributes:
-//    ISBN Code (unique code, but not the Primary Key)
-//    Title
-//    Publication Year
-//    Number of Pages
-//Books additionally have:
-//    Author
-//    Genre
-//Magazines have:
-//    Periodicity [WEEKLY, MONTHLY, SEMI-ANNUAL]
-//
-// Additionally, create the classes necessary for loan management:
-//      A User is characterized by the following attributes:
-//    First Name
-//    Last Name
-//    Date of Birth
-//    Membership Card Number (unique code, but not the Primary Key)
-//
-//A Loan is characterized by:
-//    User
-//    Borrowed Item (can be a book or a magazine)
-//    Loan Start Date
-//    Expected Return Date (calculated automatically as 30 days from the loan start date)
-//    Actual Return Date
 
 //The archive must allow the following operations:
 //    Add a catalog item
@@ -42,9 +18,36 @@ import jakarta.persistence.*;
 //    Search for all overdue loans (loans that have expired and have not yet been returned)
 
 public class Application {
-    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("U4D15");
+    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("U4D15");
 
     public static void main(String[] args) {
-        System.out.println("works");
+        EntityManager em = emf.createEntityManager();
+        LibraryItemDAO libraryDAO = new LibraryItemDAO(em);
+
+        //    Add a catalog item
+        Book cegueira = new Book("123456", "Ensaio sobre a cegueira", 1960, 259, "José Saramago", BookGenre.THRILLER);
+        Book memorias = new Book("9788572325424", "Memórias Póstumas de Brás Cubas", 1881, 224, "Machado de Assis", BookGenre.ROMANCE);
+        Book horaDaEstrela = new Book("9788570221350", "A Hora da Estrela", 1977, 96, "Clarice Lispector", BookGenre.ROMANCE);
+        Book capitaesDaAreia = new Book("9788535911695", "Capitães da Areia", 1937, 280, "Jorge Amado", BookGenre.FANTASY);
+        Book alquimista = new Book("9788575427583", "O Alquimista", 1988, 208, "Paulo Coelho", BookGenre.HISTORICAL_FICTION);
+
+        libraryDAO.save(alquimista);
+
+//      libraryDAO.save(memorias);
+//      libraryDAO.save(horaDaEstrela);
+//      libraryDAO.save(capitaesDaAreia);
+
+        Magazine superBike = new Magazine("44587996321","La nuova BMW XR1200", 2025, 62, Periodicity.MONTHLY);
+        Magazine focus = new Magazine("9771120515003", "Focus: Il Futuro dell'IA", 2026, 120, Periodicity.MONTHLY);
+        Magazine cucina = new Magazine("9771121356001", "La Cucina Italiana: Speciale Pasqua", 2026, 85, Periodicity.SEMI_ANNUAL);
+        Magazine limes = new Magazine("9788883719924", "Limes: Il mondo nel 2026", 2026, 250, Periodicity.MONTHLY);
+        Magazine natGeo = new Magazine("9771128561002", "National Geographic Italia", 2026, 114, Periodicity.MONTHLY);
+
+        libraryDAO.save(natGeo);
+
+//      libraryDAO.save(superBike);
+//      libraryDAO.save(focus);
+//      libraryDAO.save(cucina);
+//      libraryDAO.save(limes);
     }
 }

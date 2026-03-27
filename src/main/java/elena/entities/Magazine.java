@@ -12,8 +12,8 @@ public class Magazine extends LibraryItem{
 
     public Magazine(){};
 
-    public Magazine(String ISBN, int year, int pages, Periodicity periodicity){
-        super(ISBN, year,pages);
+    public Magazine(String ISBN,String title, int year, int pages, Periodicity periodicity){
+        super(ISBN,title, year,pages);
         this.periodicity = Periodicity.WEEKLY;
     }
 

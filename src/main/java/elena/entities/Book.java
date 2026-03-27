@@ -13,8 +13,8 @@ public class Book extends LibraryItem{
 
     public Book(){};
 
-    public Book(String ISBN, int year, int pages, String author, BookGenre genre){
-        super(ISBN, year,pages);
+    public Book(String ISBN,String title,  int year, int pages, String author, BookGenre genre){
+        super(ISBN, title, year,pages);
         this.author = author;
         this.genre = BookGenre.ROMANCE;
     }
